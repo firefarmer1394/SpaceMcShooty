@@ -31262,8 +31262,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrototype: {fileID: 6435454698235921747, guid: c5dd3fe8fbcf3c24c9ec53f7dc6e565e, type: 3}
   numberOfAsteroidsAtStart: 2
-  AsteroidsAtLOnce: 2
-  secondsTillNewWave: 8
+  numberAtOnceMin: 1
+  numberAtOnceMax: 5
+  secondsTillNewWave: 5
 --- !u!4 &1237460456
 Transform:
   m_ObjectHideFlags: 0
@@ -32725,7 +32726,9 @@ GameObject:
   - component: {fileID: 1801739330}
   - component: {fileID: 1801739329}
   - component: {fileID: 1801739324}
+  - component: {fileID: 1801739335}
   - component: {fileID: 1801739332}
+  - component: {fileID: 1801739334}
   m_Layer: 2
   m_Name: Spaceship
   m_TagString: Untagged
@@ -32838,8 +32841,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.915, y: 0.15, z: 0.775}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.31, y: 0.11, z: 0.3}
+  m_Center: {x: -0.305, y: -0.01, z: -0.2}
 --- !u!114 &1801739333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32861,6 +32864,33 @@ MonoBehaviour:
     m_Bits: 1024
   barrierWidth: 0.2
   velocity: {x: 0, y: 0, z: 0}
+--- !u!136 &1801739334
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801739314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 0.8
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &1801739335
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801739314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.31, y: 0.11, z: 0.3}
+  m_Center: {x: 0.305, y: -0.01, z: -0.2}
 --- !u!4 &1842636136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 452004, guid: 81a45116981bb514c866bab4841bb1fe, type: 3}

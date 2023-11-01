@@ -6,7 +6,10 @@ class AsteroidGenerator : MonoBehaviour
 
     [SerializeField, Range(1, 10)] int numberOfAsteroidsAtStart = 2;
 
-    [SerializeField, Range(1, 10)] int AsteroidsAtLOnce = 2;
+    [SerializeField, Range(0, 10)] int numberAtOnceMin = 1;
+    [SerializeField, Range(0, 10)] int numberAtOnceMax = 3;
+    int AsteroidsAtOnce;
+    
 
     [SerializeField, Range(1, 60)] float secondsTillNewWave = 8;
 
@@ -25,7 +28,8 @@ class AsteroidGenerator : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft <= 0)
         {
-            for (int i = 1; i <= AsteroidsAtLOnce; i++)
+            AsteroidsAtOnce = Random.Range(numberAtOnceMin, numberAtOnceMax);
+            for (int i = 1; i <= AsteroidsAtOnce; i++)
             {
                 GameObject newGameObject = Instantiate(asteroidPrototype);
             }

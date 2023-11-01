@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 6435454698235921747}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6435454698236258145}
@@ -212,11 +212,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   minAnglespeed: 35
   maxAnglespeed: 360
-  sizeMin: 0.5
-  sizeMax: 1.3
-  destination:
-    m_Center: {x: 0, y: 0.5, z: 3}
-    m_Extent: {x: 1.78, y: 1, z: 0}
+  sizeMin: 0.1
+  sizeMax: 1.5
   originalScale: {x: 0, y: 0, z: 0}
   body: {fileID: 0}
 --- !u!114 &6435454698871986566

@@ -16,10 +16,10 @@ public class AsteroidMover : MonoBehaviour
 
     //[SerializeField, Range(3f, 10f)] float maxLifetime = 5;
 
-    [SerializeField, Range(0.2f, 1f)] float sizeMin = 0.5f;
-    [SerializeField, Range(1.1f, 2.5f)] float sizeMax = 1.2f;
+    [SerializeField, Range(0.01f, 1f)] float sizeMin = 0.5f;
+    [SerializeField, Range(1.1f, 5f)] float sizeMax = 1.2f;
     //[SerializeField] Bounds startLocation;
-    [SerializeField] Bounds destination;
+    //[SerializeField] Bounds destination;
     Vector3 targetLocation;
     [SerializeField] Vector3 originalScale;
 
