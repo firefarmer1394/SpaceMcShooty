@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/MyFirstGame/MyFirstGame.unity
     guid: f742e37e8475f16418d5bb2a46bee993
   - enabled: 1
-    path: Assets/ProjectSkidbladnir/Menu.unity
+    path: Assets/ProjectSkidbladnir/Scenes/Menu.unity
     guid: 892b27bc32cd8e749895649fad6a1a27
   - enabled: 1
-    path: Assets/ProjectSkidbladnir/ProjectSkidbladnir.unity
+    path: Assets/ProjectSkidbladnir/Scenes/ProjectSkidbladnir.unity
     guid: 0582cd6a95176704b98a51ab19ed74e6
   m_configObjects: {}

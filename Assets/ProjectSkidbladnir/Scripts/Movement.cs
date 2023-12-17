@@ -7,6 +7,7 @@ class Movement : MonoBehaviour
     [SerializeField, Range(5f, 40f)] float maxLeaningAng;
     [SerializeField] GameObject target;
     [SerializeField] LayerMask levelWall;
+    [SerializeField, Range(100, 360)] float eulerRotIncr = 175f;
 
     Camera cam;
     float aspectRatio;
@@ -17,6 +18,7 @@ class Movement : MonoBehaviour
     [SerializeField, Range(0f, 5f)] float barrierWidth = 1f;
 
     [SerializeField] Vector3 velocity;
+    [SerializeField] Vector3 rotation;
     Vector3 euler;
 
     float angVel;
@@ -34,11 +36,13 @@ class Movement : MonoBehaviour
             target = GameObject.Find("LaserTarget");
         }
 
+
         ogSpeed = speed;
         angVel = speed * 1f;
     }
     void Update()
     {
+        rotation = transform.rotation.eulerAngles;
         bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
         bool maneuvering = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); //Increase movement speed
@@ -63,7 +67,7 @@ class Movement : MonoBehaviour
 
         float z = Input.GetAxis("Horizontal");  // Amount of horizontal movement
 
-        if (right || left)
+        /*if (right || left)
         {
             if (euler.z >= maxLeaningAng)
             {
@@ -93,12 +97,28 @@ class Movement : MonoBehaviour
                 else
                     euler.z += rotIncrement;
             }
+        }*/
+        float tgtAngZ;
+        if (right)
+        {
+            tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, 360f - maxLeaningAng, eulerRotIncr * Time.deltaTime);
         }
-
-        euler.x = lookRotEuler.x;
+        else if (left)
+        {
+            tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, maxLeaningAng, eulerRotIncr * Time.deltaTime);
+        }
+        else 
+        {
+            tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, 0f, eulerRotIncr * Time.deltaTime);
+        }
+        //Vector3 tgtAng = transform.localRotation.eulerAngles;
+        lookRotEuler.z = tgtAngZ;
+        transform.localRotation = Quaternion.Euler(lookRotEuler);
+        /*euler.x = lookRotEuler.x;
         euler.y = lookRotEuler.y;
         Quaternion q = Quaternion.Euler(euler);
-        transform.localRotation = q;
+        transform.localRotation = q;*/
+
 
         if (((transform.position.x >= edgeOfScreen.x) && z > 0) || ((transform.position.x <= -edgeOfScreen.x) && z < 0))
             z = 0;
