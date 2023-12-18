@@ -19,27 +19,29 @@ public class Pause : MonoBehaviour
         {
             if (gamePaused)
             {
-                pauseCanvas.SetActive(false);
-                Time.timeScale = 1f;
-                gamePaused = false;
+                Resume();
             }
             else
             {
+                Cursor.visible = true;
                 pauseCanvas.SetActive(true);
-                Time.timeScale = 0f;
                 gamePaused = true;
+                Time.timeScale = 0f;                               
             }  
         }
     }
     public void Retry()
     {
         Time.timeScale = 1f;
+        Cursor.visible = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Resume()
     {
+        Cursor.visible = false;
         pauseCanvas.SetActive(false);
-        Time.timeScale = 1f;
         gamePaused = false;
+        Time.timeScale = 1f; 
+        
     }
 }

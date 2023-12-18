@@ -3,7 +3,7 @@ using UnityEngine;
 class Movement : MonoBehaviour
 {
     [SerializeField, Range(1, 5)] float speed = 1f;
-    [SerializeField, Range(1.5f, 3f)] float speedMultiplier;
+    [SerializeField, Range(1.0f, 3f)] float speedMultiplier;
     [SerializeField, Range(5f, 40f)] float maxLeaningAng;
     [SerializeField] GameObject target;
     [SerializeField] LayerMask levelWall;
@@ -19,13 +19,11 @@ class Movement : MonoBehaviour
 
     [SerializeField] Vector3 velocity;
     [SerializeField] Vector3 rotation;
-    Vector3 euler;
-
-    float angVel;
-    float ogSpeed;
 
     void Start()
     {
+        Cursor.visible = false; //Kurzor elrejtese
+
         if (cam == null)
             cam = Camera.main;
 
@@ -35,16 +33,12 @@ class Movement : MonoBehaviour
         {
             target = GameObject.Find("LaserTarget");
         }
-
-
-        ogSpeed = speed;
-        angVel = speed * 1f;
+        
     }
     void Update()
     {
         rotation = transform.rotation.eulerAngles;
-        bool left = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool right = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+
         bool maneuvering = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); //Increase movement speed
 
         //Points the ship towards crosshair
@@ -54,6 +48,7 @@ class Movement : MonoBehaviour
         direction = lookThere - transform.position;
         Quaternion lookRot;
         Vector3 lookRotEuler = new Vector3(0, 0, 0);
+
         if (direction != Vector3.zero)
         {
             lookRot = Quaternion.LookRotation(direction);
@@ -65,66 +60,30 @@ class Movement : MonoBehaviour
         edgeOfScreen.y = distanceFromCam * Mathf.Tan(Mathf.Deg2Rad * cam.fieldOfView / 2) - barrierWidth;
         edgeOfScreen.x = aspectRatio * edgeOfScreen.y - barrierWidth;
 
-        float z = Input.GetAxis("Horizontal");  // Amount of horizontal movement
+        float z = Input.GetAxis("Horizontal"); //Horizontal input
 
-        /*if (right || left)
-        {
-            if (euler.z >= maxLeaningAng)
-            {
-                if (z > 0)
-                    euler.z -= angVel * z;
-            }
-            else
-            {
-                if (euler.z <= -maxLeaningAng)
-                {
-                    if (z < 0)
-                        euler.z -= angVel * z;
-                }
-                else
-                    euler.z -= angVel * z;
-            }
-        }
-        else
-        {
-            float rotIncrement = Time.deltaTime * 100;
-            if (rotIncrement > Mathf.Abs(euler.z))
-                euler.z -= euler.z;
-            else
-            {
-                if (euler.z >= 0)
-                    euler.z -= rotIncrement;
-                else
-                    euler.z += rotIncrement;
-            }
-        }*/
         float tgtAngZ;
-        if (right)
-        {
-            tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, 360f - maxLeaningAng, eulerRotIncr * Time.deltaTime);
-        }
-        else if (left)
+        if (z < 0) //left
         {
             tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, maxLeaningAng, eulerRotIncr * Time.deltaTime);
         }
-        else 
+        else if (z > 0) //right
+        {
+            tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, 360f - maxLeaningAng, eulerRotIncr * Time.deltaTime);
+        }
+        else //No horizontal input
         {
             tgtAngZ = Mathf.MoveTowardsAngle(rotation.z, 0f, eulerRotIncr * Time.deltaTime);
         }
-        //Vector3 tgtAng = transform.localRotation.eulerAngles;
         lookRotEuler.z = tgtAngZ;
         transform.localRotation = Quaternion.Euler(lookRotEuler);
-        /*euler.x = lookRotEuler.x;
-        euler.y = lookRotEuler.y;
-        Quaternion q = Quaternion.Euler(euler);
-        transform.localRotation = q;*/
 
-
+        //Check of horizontal boundaries
         if (((transform.position.x >= edgeOfScreen.x) && z > 0) || ((transform.position.x <= -edgeOfScreen.x) && z < 0))
             z = 0;
 
-        float y = Input.GetAxis("Vertical");   // Amount of vertical movement
-
+        float y = Input.GetAxis("Vertical");   // Vertical input
+        //Check of vertical boundaries
         if (((transform.position.y >= edgeOfScreen.y) && y > 0) || ((transform.position.y <= (-edgeOfScreen.y)) && y < 0))
             y = 0;
 
@@ -133,12 +92,10 @@ class Movement : MonoBehaviour
         velocity.Normalize(); //Normalize velocity for the same speed by diagonal movement
 
         if (maneuvering)
-            speed = ogSpeed * speedMultiplier;
+            velocity *= (speed * speedMultiplier); 
         else
-            speed = ogSpeed;
+            velocity *= speed;
 
-        velocity *= speed;  // Speed sensitivity
-        velocity *= Time.deltaTime;  //Velocity is not affected by FPS
-        transform.position += velocity;
+        transform.position += (velocity * Time.deltaTime);
     }
 }

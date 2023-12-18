@@ -30,18 +30,17 @@ public class Targeting : MonoBehaviour
         //Collider coll = levelWall.GetComponent<Collider>();
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         bool isHit = Physics.Raycast(ray, out RaycastHit hit);
+        transform.rotation = Quaternion.LookRotation(ray.direction);
+        transform.position = hit.point;
 
-        lastHit = hit.point;
-
-        transform.position = lastHit;
 
         float actDist = (Camera.main.transform.position - transform.position).magnitude;
 
         float ratio = actDist / originalDist;
 
         transform.localScale = ogScale*ratio*scaleMod;
+        
 
         //RaycastHit hit;
 

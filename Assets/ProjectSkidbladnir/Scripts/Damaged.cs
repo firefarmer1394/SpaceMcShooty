@@ -5,7 +5,7 @@ using System.Collections;
 
 class Damaged : MonoBehaviour
 {
-    [SerializeField, Range(1, 100)] int startHealth = 10;
+    [SerializeField, Range(1, 10)] int startHealth = 5;
     [SerializeField] TMP_Text textField;
     [SerializeField] Color fullHealthColor = Color.green;
     [SerializeField] Color zeroHealthColor = Color.red;
@@ -43,6 +43,7 @@ class Damaged : MonoBehaviour
 
         if (currentHealth == 0)
         {
+            Cursor.visible = true;
             gameOverCanvas.SetActive(true);
 
             for (int i = 0; i < allColliders.Length; i++)
