@@ -134,7 +134,10 @@ class Movement : MonoBehaviour
             if ((transform.position.y >= edgeOfScreen.y) || (transform.position.y <= -edgeOfScreen.y))
                 dashDir.y = 0;
             dashDir.Normalize();
-            transform.position += (dashDir * dashingSpeed * Time.deltaTime);
+
+            float dashSpeed = Mathf.SmoothStep(0, dashingSpeed, dashTimer/dashingTime);
+
+            transform.position += (dashDir * dashSpeed * Time.deltaTime);
             dashTimer -= Time.deltaTime;
             tr.emitting = true;
             return;

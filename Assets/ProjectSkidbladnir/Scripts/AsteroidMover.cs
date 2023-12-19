@@ -31,9 +31,6 @@ public class AsteroidMover : MonoBehaviour
     float maxLifetime;
 
     [SerializeField] Rigidbody body;
-    
-
-
     void Start()
     {
         if (cam == null)
@@ -45,8 +42,7 @@ public class AsteroidMover : MonoBehaviour
             body = GetComponent<Rigidbody>();
 
         originalScale = transform.localScale;
-        TeleportToStart();       
-
+        TeleportToStart();
     }
 
 
@@ -106,7 +102,7 @@ public class AsteroidMover : MonoBehaviour
     {
         lifetime += Time.deltaTime;
         if (lifetime >= maxLifetime)
-            TeleportToStart();
+            Destroy(gameObject);
     }
 
 
