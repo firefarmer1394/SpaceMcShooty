@@ -16,12 +16,12 @@ public class AsteroidMover : MonoBehaviour
 
     //[SerializeField, Range(3f, 10f)] float maxLifetime = 5;
 
-    [SerializeField, Range(0.01f, 1f)] float sizeMin = 0.5f;
-    [SerializeField, Range(1.1f, 5f)] float sizeMax = 1.2f;
+    [SerializeField, Range(0.01f, 1f)] float sizeMin = 0.2f;
+    [SerializeField, Range(0.01f, 1f)] float sizeMax = 0.6f;
     //[SerializeField] Bounds startLocation;
     //[SerializeField] Bounds destination;
     Vector3 targetLocation;
-    [SerializeField] Vector3 originalScale;
+    Vector3 originalScale;
 
     float velocity;
     float angleSpeed;
@@ -63,7 +63,6 @@ public class AsteroidMover : MonoBehaviour
         spinner = new Vector3(angleSpeed, angleSpeed, 0f);
 
         transform.localScale = originalScale * Random.Range(sizeMin, sizeMax);
-
                 
         Vector3 farClipCenter;        
         float farRandY = cam.farClipPlane * Mathf.Tan(Mathf.Deg2Rad * cam.fieldOfView / 2);        
@@ -81,7 +80,6 @@ public class AsteroidMover : MonoBehaviour
         body.velocity = (direction * velocity);
         body.angularVelocity = spinner;
     }
-
     public Vector3 TargetPos()
     {
         Vector3 nearClipCenter;
@@ -93,11 +91,6 @@ public class AsteroidMover : MonoBehaviour
         Vector3 nearRandomLoc = nearClipCenter + nearRandY * cam.transform.up + nearRandX * cam.transform.right;
         return nearRandomLoc;
     }
-
-
-
-
-
     void Update()
     {
         lifetime += Time.deltaTime;

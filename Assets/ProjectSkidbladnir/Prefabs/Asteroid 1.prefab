@@ -213,8 +213,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   minAnglespeed: 35
   maxAnglespeed: 360
-  sizeMin: 0.25
-  sizeMax: 1.25
+  sizeMin: 0.2
+  sizeMax: 0.6
   originalScale: {x: 0, y: 0, z: 0}
   body: {fileID: 6435454698230761189}
 --- !u!114 &6435454698871986566
@@ -297,7 +297,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1
+        value: 0.25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -318,7 +318,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.7058824}
+      key0: {r: 0.4245283, g: 0.3540177, b: 0.2979708, a: 0.7058824}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

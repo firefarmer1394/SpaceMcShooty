@@ -135,7 +135,7 @@ class Movement : MonoBehaviour
                 dashDir.y = 0;
             dashDir.Normalize();
 
-            float dashSpeed = Mathf.SmoothStep(0, dashingSpeed, dashTimer/dashingTime);
+            float dashSpeed = Mathf.SmoothStep(speed, dashingSpeed, dashTimer/dashingTime);
 
             transform.position += (dashDir * dashSpeed * Time.deltaTime);
             dashTimer -= Time.deltaTime;
