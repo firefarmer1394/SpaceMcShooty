@@ -30,9 +30,6 @@ class Movement : MonoBehaviour
     [SerializeField] TrailRenderer tr;
 
     [SerializeField] bool canDash = true;
-    [SerializeField] bool isDashing;
-
-
 
     void Start()
     {
@@ -122,17 +119,20 @@ class Movement : MonoBehaviour
             dashDir = moveDir;
             dashTimer = dashingTime;
             canDash = false;
-            isDashing = true;
             cooldown = dashingCooldown + dashingTime;
         }
         if (dashTimer > 0)
         {
             //Check of horizontal boundaries
             if ((transform.position.x >= edgeOfScreen.x) || (transform.position.x <= -edgeOfScreen.x))
+            {
                 dashDir.x = 0;
+            }
             //Check of vertical boundaries
             if ((transform.position.y >= edgeOfScreen.y) || (transform.position.y <= -edgeOfScreen.y))
+            {
                 dashDir.y = 0;
+            }
             dashDir.Normalize();
 
             float dashSpeed = Mathf.SmoothStep(speed, dashingSpeed, dashTimer/dashingTime);
@@ -144,7 +144,6 @@ class Movement : MonoBehaviour
         }
         else
         {
-            isDashing = false;
             tr.emitting = false;
         }
 
